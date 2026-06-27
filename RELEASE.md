@@ -20,13 +20,38 @@ git push -u origin main
 
 4. Add topics: `macos`, `tauri`, `claude-code`, `codex`, `cursor`, `antigravity`, `usage`, `menu-bar`
 
-## Optional release artifacts
+## GitHub Actions release
+
+Repository secrets (Settings → Secrets and variables → Actions):
+
+| Secret | Purpose |
+|--------|---------|
+| `ANTIGRAVITY_OAUTH_CLIENT_ID` | Antigravity CLI public OAuth client ID (build-time) |
+| `ANTIGRAVITY_OAUTH_CLIENT_SECRET` | Antigravity CLI public OAuth client secret (build-time) |
+
+### Automatic release (tag push)
 
 ```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+The [Release workflow](.github/workflows/release.yml) builds a macOS `.dmg` and publishes it to [GitHub Releases](https://github.com/clampist/ai-usage/releases).
+
+### Manual release (Actions tab)
+
+1. Go to **Actions → Release → Run workflow**
+2. Enter tag (e.g. `v0.1.0`)
+3. Download the `.dmg` from the new release when the job completes
+
+## Local release build
+
+```bash
+cp .env.example .env   # fill ANTIGRAVITY_OAUTH_* 
 npm run tauri build
 ```
 
-Upload `src-tauri/target/release/bundle/dmg/*.dmg` to a GitHub Release tagged `v0.1.0`.
+Artifact: `src-tauri/target/release/bundle/dmg/*.dmg`
 
 ## Pre-push security scan
 
@@ -47,9 +72,10 @@ gitleaks detect --source . --verbose
 
 ## CI
 
-GitHub Actions workflow at `.github/workflows/ci.yml` runs on push/PR to `main`:
-- `npm ci` + `npm run build`
-- `cargo check` in `src-tauri/`
+GitHub Actions:
+
+- **CI** (`.github/workflows/ci.yml`) — runs on push/PR to `main`: `npm build` + `cargo check` (uses Antigravity OAuth secrets)
+- **Release** (`.github/workflows/release.yml`) — runs on `v*` tag push or manual dispatch; publishes macOS `.dmg` to GitHub Releases
 
 ## License
 
