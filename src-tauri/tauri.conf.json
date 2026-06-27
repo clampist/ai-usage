@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "AI Usage",
+  "version": "0.1.0",
+  "identifier": "com.clampist.ai-usage",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "macOSPrivateApi": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "AI Usage",
+        "width": 300,
+        "height": 480,
+        "minWidth": 260,
+        "minHeight": 200,
+        "maxWidth": 420,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": true,
+        "resizable": true,
+        "skipTaskbar": true,
+        "visible": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; connect-src ipc: https://ipc.localhost; style-src 'self' 'unsafe-inline'; img-src 'self' asset: https://asset.localhost blob: data:; object-src 'none'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

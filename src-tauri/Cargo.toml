@@ -1,0 +1,45 @@
+[package]
+name = "ai-usage"
+version = "0.1.0"
+description = "macOS menu bar widget for AI coding tool usage quotas"
+authors = ["clampist"]
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/clampist/ai-usage"
+homepage = "https://github.com/clampist/ai-usage"
+
+[lib]
+name = "ai_usage_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[example]]
+name = "fetch_usage"
+path = "examples/fetch_usage.rs"
+
+[[example]]
+name = "debug_cursor"
+path = "examples/debug_cursor.rs"
+
+[[example]]
+name = "debug_codex"
+path = "examples/debug_codex.rs"
+
+[[example]]
+name = "debug_antigravity"
+path = "examples/debug_antigravity.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["macos-private-api", "tray-icon", "image-png"] }
+tauri-plugin-autostart = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+chrono = { version = "0.4", features = ["serde"] }
+base64 = "0.22"
+directories = "5"
+futures = "0.3"
