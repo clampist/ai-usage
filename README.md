@@ -20,6 +20,8 @@ A macOS menu bar widget that shows **usage quotas and reset timers** for AI codi
 
 ## Screenshots
 
+![AI Usage panel showing Claude, Codex, Cursor, and Antigravity quotas](docs/screenshot.png)
+
 The panel runs from the **menu bar** (not the Dock). Left-click the tray icon to show/hide; right-click for Refresh / Quit.
 
 ## Requirements
